@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,8 +12,11 @@ public class Main {
         int cardStartTwo;
 
         String end;
+        String endGame = "ano";
+        System.out.println("----------- CASINO -----------");
+        System.out.println("Vítejte v casinu!");
 
-        System.out.println("Vítejte v casinu");
+        System.out.println("----------- PRAVIDLA -----------");
 
         System.out.println("Chcete zobrazit pravidla? (ano/ne)");
         String rules = sc.nextLine().trim().toLowerCase();
@@ -30,98 +34,161 @@ public class Main {
                     Pokud budete mít stejně, hra se resetuje a Vaše sázka bude vrácena.""";
             System.out.println(rulesText);
         }
-        System.out.println();
-        System.out.println("Jsi starší 18-ti let? (ano/ne)");
+
+        System.out.println("Jste starší 18-ti let? (ano/ne)");
         String age = sc.nextLine().trim().toLowerCase();
 
         switch (age) {
             case "ano" -> {
-                System.out.println("Kolik peněz u sebe máš?");
+
+                System.out.println("----------- PENÍZE A SÁZKY -----------");
+
+                System.out.println("Kolik peněz máte u sebe?");
                 double money = sc.nextDouble();
 
-                System.out.println("Kolik chceš vsadit?");
-                double bet = sc.nextDouble();
+                do {
+                    System.out.println("Kolik chcete vsadit?");
+                    double bet = sc.nextDouble();
 
-                sc.nextLine();
+                    sc.nextLine();
 
-                if (money > bet) {
-                    cardStartOne = rd.nextInt(5) + 1;
-                    System.out.println("Obdržel jsi první kartu s hodnotou: " + cardStartOne);
+                    if (bet == 0) {
+                        System.out.println("Pro zahájení hry musíte něco vsadit.");
+                    } else if (money > bet) {
 
-                    cardStartTwo = rd.nextInt(5) + 1;
-                    System.out.println("Obdržel jsi druhou kartu s hodnotou: " + cardStartTwo);
+                        System.out.println("----------- ROZDÁNÍ PRVNÍCH KARET -----------");
 
-                    System.out.println();
-
-                    int cardValue = cardStartOne + cardStartTwo;
-
-                    System.out.println("Aktuální hodnota tvých karet: " + cardValue);
-                    System.out.println("Aktuální počet tvých karet " + numOfCards);
-
-                    System.out.println();
-
-                    System.out.println("Přejete si zahájit hru?");
-                    String start = sc.nextLine().trim().toLowerCase();
-
-                    switch (start) {
-                        case "ano" -> {
-                            System.out.println("Aktuální hodnota tvých karet je: " + cardValue);
-                            System.out.println("Aktuální počet tvých karet je: " + numOfCards);
-
-                            System.out.println();
-
-                            do {
-                                System.out.println("Vytáhl jste si kartu.");
-                                int newCard = rd.nextInt(7) + 1;
-                                cardValue += newCard;
-                                numOfCards++;
-
-                                System.out.println("Hodnota nové karty: " + newCard);
-                                System.out.println("Aktuální hodnota karet: " + cardValue);
-                                System.out.println("Aktuální počet karet: " + numOfCards);
-
-                                System.out.println();
-
-                                if (cardValue > 21) {
-                                    System.out.println("Bust");
-                                    end = "ne";
-                                } else if (cardValue == 21) {
-                                    System.out.println("Blackjack");
-                                    end = "ne";
-                                } else {
-                                    System.out.println("Chcete další kartu? (ano/ne)");
-                                    end = sc.nextLine();
-                                }
-                            } while (end.equals("ano"));
-                            System.out.println("Nyní začíná hrát krupiér.");
-
-                            int krupierCardOne = rd.nextInt(11) + 4;
-                            int krupierCardTwo = rd.nextInt(11) + 4;
-                            int krupierCardValue = krupierCardOne + krupierCardTwo;
-
-                            System.out.println("Hodnota karet krupiéra: " + krupierCardValue);
-
-                            if (krupierCardValue > 21) {
-                                System.out.println("Bust");
-                                krupierCardValue = 0;
-                            } else if (krupierCardValue == 21) {
-                                System.out.println("Blackjack");
-                                cardValue = 0;
-                            }
-
-                            if (cardValue > krupierCardValue) {
-                                System.out.println("Gratulujeme, vyhrál jste.");
-                                bet *= 2;
-                            } else if (cardValue < krupierCardValue) {
-                                System.out.println("Je nám líto, prohrál jste.");
-                                money -= bet;
-                            }
+                        cardStartOne = rd.nextInt(10) + 5;
+                        if (cardStartOne == 11) {
+                            System.out.println("Obdržel jste první kartu s hodnotou: J");
+                            cardStartOne = 10;
+                        } else if (cardStartOne == 12) {
+                            System.out.println("Obdržel jste první kartu s hodnotou: Q");
+                            cardStartOne = 10;
+                        } else if (cardStartOne == 13) {
+                            System.out.println("Obdržel jste první kartu s hodnotou: K");
+                            cardStartOne = 10;
+                        } else if (cardStartOne == 14) {
+                            System.out.println("Obdržel jste první kartu s hodnotou: A");
+                            cardStartOne = 1;
+                        } else {
+                            System.out.println("Obdržel jste první kartu s hodnotou: " + cardStartOne);
                         }
-                        case "ne" -> System.out.println("Tak třeba příště.");
 
-                        default -> System.out.println("Mluvte zřetelně");
+                        cardStartTwo = rd.nextInt(4) + 1;
+                        System.out.println("Obdržel jste druhou kartu s hodnotou: " + cardStartTwo);
+
+                        System.out.println();
+
+                        int cardValue = cardStartOne + cardStartTwo;
+
+                        System.out.println("Aktuální hodnota Vašich karet: " + cardValue);
+                        System.out.println("Aktuální počet Vašich karet " + numOfCards);
+
+                        System.out.println();
+
+                        System.out.println("Přejete si zahájit hru?");
+                        String start = sc.nextLine().trim().toLowerCase();
+
+                        switch (start) {
+                            case "ano" -> {
+                                System.out.println("----------- START HRY -----------");
+                                do {
+
+                                    System.out.println("Vytáhl jste si kartu.");
+                                    int newCard = rd.nextInt(5) + 5;
+                                    if (newCard == 6) {
+                                        System.out.println("Hodnota nové karty: J");
+                                        newCard = 10;
+                                    } else if (newCard == 7) {
+                                        System.out.println("Hodnota nové karty: Q");
+                                        newCard = 10;
+                                    } else if (newCard == 8) {
+                                        System.out.println("Hodnota nové karty: K");
+                                        newCard = 10;
+                                    } else if (newCard == 9) {
+                                        System.out.println("Hodnota nové karty: A");
+                                        newCard = 1;
+                                    } else {
+                                        System.out.println("Hodnota nové karty: " + newCard);
+                                    }
+
+                                    cardValue += newCard;
+                                    numOfCards++;
+
+                                    System.out.println("Aktuální hodnota karet: " + cardValue);
+                                    System.out.println("Aktuální počet karet: " + numOfCards);
+
+                                    if (cardValue > 21) {
+                                        System.out.println("Bust");
+                                        end = "ne";
+                                    } else if (cardValue == 21) {
+                                        System.out.println("Blackjack");
+                                        end = "ne";
+                                    } else {
+                                        System.out.println("Chcete další kartu? (ano/ne)");
+                                        end = sc.nextLine();
+                                    }
+                                } while (end.equals("ano"));
+
+                                System.out.println("----------- START HRY KRUPIÉRA -----------");
+
+                                System.out.println("Nyní začíná hrát krupiér.");
+
+                                int krupierCardOne = rd.nextInt(11) + 4;
+                                int krupierCardTwo = rd.nextInt(11) + 4;
+                                int krupierCardValue = krupierCardOne + krupierCardTwo;
+
+                                System.out.println("Hodnota karet krupiéra: " + krupierCardValue);
+
+                                if (krupierCardValue > 21) {
+                                    System.out.println("Bust");
+                                    krupierCardValue = 0;
+                                } else if (krupierCardValue == 21) {
+                                    System.out.println("Blackjack");
+                                    cardValue = 0;
+                                }
+
+                                System.out.println("----------- KONEC HRY -----------");
+
+                                if ((cardValue > krupierCardValue) && (cardValue <= 21)) {
+                                    System.out.println("Gratulujeme, vyhrál jste. Vaše sázka byla zdvojnásobena.");
+                                    money += bet * 2;
+                                    System.out.println("Váš aktuální počet peněz: " + money);
+                                } else if ((cardValue < krupierCardValue) && (krupierCardValue <= 21)) {
+                                    System.out.println("Je nám líto, prohrál jste. Vaše sázka propadla ve prospěch kasínu.");
+                                    money -= bet;
+                                    System.out.println("Váš aktuální počet peněz: " + money);
+                                } else if (cardValue > 21) {
+                                    System.out.println("Je nám líto, prohrál jste. Vaše sázka propadla ve prospěch kasínu.");
+                                    money -= bet;
+                                    System.out.println("Váš aktuální počet peněz: " + money);
+                                } else if ((cardValue <= 21 && krupierCardValue > 21)) {
+                                    System.out.println("Gratulujeme, vyhrál jste. Vaše sázka byla zdvojnásobena.");
+                                    money += bet * 2;
+                                    System.out.println("Váš aktuální počet peněz: " + money);
+                                } else if ((cardValue > 21 && krupierCardValue > 21) || (cardValue == krupierCardValue)) {
+                                    System.out.println("Remíza, sázka byla navrácena.");
+                                    System.out.println("Váš aktuální počet peněz: " + money);
+                                }
+                                System.out.println("Chcete pokračovat ve hře? (ano/ne)");
+                                endGame = sc.nextLine();
+                                if (endGame.equals("ano")) {
+                                    krupierCardValue = 0;
+                                    cardValue = 0;
+                                    System.out.println("Aktuální hodnota peněz: " + money);
+                                } else {
+                                    System.out.println("Děkujeme za Vaši věrnost. Nashledanou!");
+                                }
+                            }
+                            case "ne" -> System.out.println("Tak třeba příště.");
+
+                            default -> System.out.println("Mluvte zřetelně");
+                        }
+                    } else if (money < bet) {
+                        System.out.println("Váš obnos peněz není dostačující pro požadovanou sázku.");
                     }
-                }
+                } while (endGame.equals("ano"));
             }
             case "ne" -> System.out.println("Sem mají přístup jen dospělí.");
 
@@ -129,4 +196,3 @@ public class Main {
         }
     }
 }
-
