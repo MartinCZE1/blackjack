@@ -22,16 +22,24 @@ public class Main {
         String rules = sc.nextLine().trim().toLowerCase();
         if (rules.equals("ano")) {
             String rulesText = """
-                    Při příchodu do kasína budete moci vsadit nějaké peníze.
+                    Při příchodu do kasína budete moci vsadit peníze.
                     Poté dostanete dvě karty a uvidíte jejich hodnotu.
-                    Až potom se budete moci rozhodnout, jestli opravdu budete chtít zahájit hru.
-                    Pokud ano, vytáhnete si kartu, podíváte se na její hodnotu a na základě toho si vyberete, zda chcete další kartu.
-                    Pokud budete mít štěstí a Vaše hodnota karet bude rovna 21, hra automaticky zkončí a Vaše sázka bude zdvojnásobena.
-                    Pokud ovšem hodnota Vašich karet přesáhne 21 hra zkončí a Vy přijdete o svou sázku.
-                    Hned po Vaší hře odehraje svou hru krupiér.
-                    Pokud budete mít více než krupiér, vyhrál jste.
-                    Pokud budete mít méně než krupiér, prohrál jste.
-                    Pokud budete mít stejně, hra se resetuje a Vaše sázka bude vrácena.""";
+                    Až potom se budete moci rozhodnout, jestli opravdu budete chtít zahájit hru. 
+                    Pokud nebude chtít hru zahájit, budete moci vsadit znovu a zkusit štěstí s novými kartami.
+                    Pokud hru zahájíte, vytáhnete si kartu, podíváte se na její hodnotu a na základě toho si vyberete, zda chcete další kartu.
+                    Pokud budete mít štěstí a Vaše hodnota karet bude rovna 21, hra automaticky skončí a Vaše sázka bude zdvojnásobena.
+                    Pokud ovšem hodnota Vašich karet přesáhne 21 hra skončí a Vy přijdete o svou sázku.
+                    V případě, že hodnota Vašich karet bude menší, bež hodnota karet krupiéra, prohrál jste. 
+                    V opačném případě, kdy hodnota Vašich karet bude větší, než hodnota karet krupiéra, vyhrál jste.
+                    Pokud budete mít stejně, hra se resetuje a Vaše sázka bude vrácena.
+                    Krupiér začíná hrát až po Vaší hře.
+                    Hodnoty karet: karty s čísly - hodnota karty je napsána na kartě, A - hodnota karty je jedna, J, Q, K - hodnota karet je 10.
+                    Po konci hry se můžete rozhodnout, jestli budete pokračovat ve hře, nebo odejdete. \n
+                    UPOZORNĚNÍ:
+                    Kasíno neručí za ztracené peníze. Vždy sázejte peníze, které jste připraveni ztratit.
+                    Účast na hazardní hře je čistě dobrovolná.
+                    Účastí na hazardní hře potvrzujete, že jste starší 18-ti let.
+                    """;
             System.out.println(rulesText);
         }
 
@@ -40,7 +48,6 @@ public class Main {
 
         switch (age) {
             case "ano" -> {
-
                 System.out.println("----------- PENÍZE A SÁZKY -----------");
 
                 System.out.println("Kolik peněz máte u sebe?");
@@ -94,7 +101,6 @@ public class Main {
                             case "ano" -> {
                                 System.out.println("----------- START HRY -----------");
                                 do {
-
                                     System.out.println("Vytáhl jste si kartu.");
                                     int newCard = rd.nextInt(5) + 5;
                                     if (newCard == 6) {
@@ -176,7 +182,6 @@ public class Main {
                                 if (endGame.equals("ano")) {
                                     krupierCardValue = 0;
                                     cardValue = 0;
-                                    System.out.println("Aktuální hodnota peněz: " + money);
                                 } else {
                                     System.out.println("Děkujeme za Vaši věrnost. Nashledanou!");
                                 }
