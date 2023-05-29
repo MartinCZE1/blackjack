@@ -164,7 +164,7 @@ public class Main {
 
                                 if ((cardValue > krupierCardValue) && (cardValue <= 21)) {
                                     System.out.println("Gratulujeme, vyhrál jste. Vaše sázka byla zdvojnásobena.");
-                                    money += bet * 2;
+                                    money += bet;
                                     System.out.println("Váš aktuální počet peněz: " + money);
                                 } else if ((cardValue < krupierCardValue) && (krupierCardValue <= 21)) {
                                     System.out.println("Je nám líto, prohrál jste. Vaše sázka propadla ve prospěch kasínu.");
@@ -175,7 +175,7 @@ public class Main {
                                     System.out.println("Váš aktuální počet peněz: " + money);
                                 } else if ((cardValue <= 21) && (krupierCardValue > 21)) {
                                     System.out.println("Gratulujeme, vyhrál jste. Vaše sázka byla zdvojnásobena.");
-                                    money += bet * 2;
+                                    money += bet;
                                     System.out.println("Váš aktuální počet peněz: " + money);
                                 } else if (cardValue > 21) {
                                     System.out.println("Je nám líto, prohrál jste. Vaše sázka propadla ve prospěch kasínu.");
@@ -192,6 +192,7 @@ public class Main {
                                     if (endGame.equals("ano")) {
                                         krupierCardValue = 0;
                                         cardValue = 0;
+                                        numOfCards = 2;
                                     } else {
                                         System.out.println("Děkujeme za Vaši věrnost. Nashledanou!");
                                     }
