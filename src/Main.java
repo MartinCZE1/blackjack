@@ -33,18 +33,18 @@ public class Main {
                     Pokud budete mít stejně, hra se resetuje a Vaše sázka bude navrácena.
                     Krupiér začíná hrát až po Vaší hře.
                     Po konci hry se můžete rozhodnout, jestli budete pokračovat ve hře, nebo odejdete.
-                    
+                                        
                     Hodnoty karet: karty s čísly - hodnota karty je napsána na kartě, A - hodnota karty je 1, J, Q, K - hodnota karet je 10.
-                    
+                                        
                     UPOZORNĚNÍ:
                     Kasíno neručí za ztracené peníze. Vždy sázejte peníze, které jste připraveni a ochotni ztratit.
                     Účast na hazardní hře je čistě dobrovolná.
                     Účastí na hazardní hře potvrzujete, že jste starší 18-ti let. Pokud se zjistí, že nejste plnoletí, budete vyvedeni ostrahou.
-                    
+                                        
                     UPOZORNĚNÍ PRO POUŽITÍ PROGRAMU:
                     Příkazy pište gramaticky správně tak, jak je vidíte v závorce za textem, za který budete něco vypisovat.
                     Po napsání příkazu odenterujte pouze jednou.
-                    
+                                        
                     Hodně štěstí a zábavy.
                     """;
             System.out.println(rulesText);
@@ -101,7 +101,7 @@ public class Main {
 
                         System.out.println();
 
-                        System.out.println("Přejete si zahájit hru?");
+                        System.out.println("Přejete si zahájit hru? (ano/ne)");
                         String start = sc.nextLine().trim().toLowerCase();
 
                         switch (start) {
